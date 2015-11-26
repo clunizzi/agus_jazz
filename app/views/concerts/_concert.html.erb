@@ -1,0 +1,5 @@
+<%= concert.place %><br />
+<%= concert.data %><br />
+<% concert.musicians.each do |musician| %>
+<%= link_to musician.name, musician_path(musician) %><br />
+<% end %>

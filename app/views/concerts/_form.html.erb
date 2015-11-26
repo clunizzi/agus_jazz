@@ -1,0 +1,30 @@
+<%= form_for(@concert) do |f| %>
+  <% if @concert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@concert.errors.count, "error") %> prohibited this concert from being saved:</h2>
+
+      <ul>
+      <% @concert.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.label :place %> <br />
+    <%= f.text_field :place %><br /><br />
+
+    <%= f.label :data %><br />
+    <%= f.date_field :data %><br /><br />
+
+    <%= f.collection_select(:musician_ids, Musician.all, :id, :name) %> <br />
+
+    <%= f.fields_for :musicians do |musician| %>
+      <%= render 'musician_fields', f: musician %>
+    <% end %>
+    <%= link_to_add_association 'add musician', f, :musicians %><br /><br />
+
+    <%= f.submit %>
+  </div>
+<% end %>
